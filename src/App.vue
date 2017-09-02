@@ -8,7 +8,7 @@
         <ul class="nav navbar-nav pull-right">
           <li v-if="!this.$cookie.get('auth')"><a href="#" @click.prevent="$modal.show('dialog', dialogContent)"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
           <li class="dropdown" v-else>
-            <a class="dropdown-toggle" data-toggle="dropdown" href="#">{{this.$cookie('full_name')}}
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#"><avatar :size="30" :username="fullName" class="center-loader"></avatar> <span>{{fullName}}</span>
             <span class="caret"></span></a>
             <ul class="dropdown-menu">
               <li><a href="#">Modifica profilo</a></li>
@@ -24,14 +24,20 @@
 </template>
 
 <script>
+import Avatar from 'vue-avatar/dist/Avatar'
+
 export default {
   name: 'app',
+  components: {
+    Avatar
+  },
   data () {
     return {
       login: {
         password: '',
         email: ''
       },
+      fullName: this.$cookie.get('full_name'),
       dialogContent: {
         title: 'Accedi al tuo account',
         text: '<div class="form-group"> <label>Email</label> <input type="email" name="" class="form-control" required="" id="login-email"> </div> <div class="form-group"> <label>Password</label> <input type="password" name="" class="form-control" required="" id="login-password"> </div>',
@@ -65,7 +71,7 @@ export default {
           this.$cookie.set('authorization', auth)
           this.$cookie.set('account_type', userType)
           window.location.href = '/dashboard/' + userType
-        }
+        } else throw new Error('login fallito')
       }).catch((e) => {
         console.log(e)
         this.$toasted.error('Errore, login fallito, riprova')

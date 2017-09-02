@@ -21,7 +21,8 @@
     "vue-spinner": "^1.0.2",
     "vue-toasted": "^1.1.15",
     "vue2-google-maps": "^0.8.0",
-    "vuejs-datepicker": "^0.9.11"
+    "vuejs-datepicker": "^0.9.11",
+    "vue-avatar": "git://github.com/negezor/vue-avatar#master"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",

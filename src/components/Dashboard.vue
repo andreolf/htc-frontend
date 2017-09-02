@@ -23,7 +23,7 @@
             <h3>PROSSIMI BUCATI</h3>
             <p class="text-muted">xxxxxx</p>
 
-            <skew-loader :loading="nextWashList === null"></skew-loader>
+            <skew-loader :loading="nextWashList === null" style="padding: 10% 0;"></skew-loader>
             <div class="panel panel-default" v-for="obj in nextWashList">
               <div class="panel-body">
                 
@@ -34,10 +34,10 @@
             <h3>RICHIESTE ATTIVE</h3>
             <p class="text-muted">xxxxxx</p>
 
-            <skew-loader :loading="activeWashList === null"></skew-loader>
+            <skew-loader :loading="activeWashList === null" style="padding: 10% 0;"></skew-loader>
             <div class="panel panel-default" v-for="obj in activeWashList">
               <div class="panel-body">
-                
+                obj
               </div>
             </div>
           </div>
@@ -46,7 +46,15 @@
     <div v-else>
     <!-- client -->
       <div class="row">
-        <subscribe/>
+        <div v-if="hasSub === null">
+          <bounce-loader :loading="true" class="center-loader"></bounce-loader>
+        </div>
+        <div v-else>
+          <div v-if="hasSub == true">
+            
+          </div>
+          <subscribe v-else="hasSub == false"/>
+        </div>
       </div>
     </div>
   </div>
@@ -70,24 +78,60 @@ export default {
       balance: null,
       nextWashList: null,
       activeWashList: null,
-      email: {'email': this.$cookie.get('email')},
-      paymentAdded: null
+      washerSubIdList: [],
+      email: this.$cookie.get('email'),
+      paymentAdded: null,
+      remWash: null,
+      hasSub: this.$cookie.get('hasSub') || null
     }
   },
   methods: {
-    getMySubs: function () {
-      this.$axios.post(this.$config.BASE_API + '/get_my_subs', this.email).then((response) => {
+    getMySubs: function (subId) {
+      var url = this.$config.BASE_API + '/subs/'
+      if (typeof subId === 'undefined') {
+        var queryString = `?where={"$or":[`
+        this.washerSubIdList.map((val) => {
+          this.queryString += `{"sub_id":${val}}`
+        })
+        queryString += ']}'
+        url += queryString
+      } else url += subId
+      this.$axios.get(url).then((response) => {
         console.log(response)
       }).catch((e) => {
         console.log(e)
       })
     },
+    getWasherBySub: function (subId) {
+      var queryString = `?where={"running_sub_id":{"$in": [${subId}]}}`
+      this.$axios.get(this.$config.BASE_API + '/washer/' + queryString).then((response) => {
+        console.log(response)
+      }).catch((e) => {
+        console.log(e)
+      })
+    },
+    getAllSubs: function () {
+      this.$axios.get(this.$config.BASE_API + '/all_available_subs').then((response) => {
+        console.log(response)
+        this.activeWashList = response.data.active_subs
+      }).catch((e) => {
+        console.log(e)
+      })
+    },
     getAccountInfo: function () {
-      this.$axios.post(this.$config.BASE_API + '/account_info', this.email).then((response) => {
+      this.$axios.get(this.$config.BASE_API + '/' + this.dashboardType + '/' + this.email).then((response) => {
         console.log(response)
         var data = response.data
-        this.balance = data.balance
-        this.paymentAdded = data.payment_added
+        if (data.balance) this.balance = data.balance
+        if (data.payment_added) this.paymentAdded = data.payment_added
+        if (this.dashboardType === 'client') {
+          this.hasSub = data.sub_id
+          this.$cookie.set('hasSub', data.sub_id)
+        } else {
+          this.washerSubIdList = data.running_sub_id
+          this.getAllSubs()
+        }
+        this.getMySubs()
       }).catch((e) => {
         console.log(e)
       })
