@@ -64,7 +64,13 @@ export default {
       center: {lat: 45.837117, lng: 9.026937},
       defaultLocation: 'Spazio Officina, Via D. Alighieri 4, 6830 Chiasso, Switzerland',
       markers: [{position: {lat: 45.837117, lng: 9.026937}}],
-      signUpType: this.$route.params.type
+      signUpType: this.$route.params.type,
+      form: {
+        password: '',
+        email: '',
+        fullName: '',
+        address: ''
+      }
     }
   },
   computed: {
@@ -79,6 +85,14 @@ export default {
       var position = {lat: val.latitude, lng: val.longitude}
       this.markers = [{position: position}]
       this.center = position
+    },
+    signUp: function () {
+      form.type = this.signUpType
+      this.$axios.post(this.$config.BASE_API, form).then((response) => {
+
+      }).catch((e) => {
+
+      })
     }
   }
 }

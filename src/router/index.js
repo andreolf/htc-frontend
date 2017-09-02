@@ -11,7 +11,7 @@ const Axios = require('axios')
 
 Vue.Cookie = Cookie
 Vue.prototype.$cookie = Cookie
-
+Vue.prototype.$config = config
 Axios.defaults.headers.common['Accept'] = 'application/json'
 
 Axios.defaults.headers.common['Authorization'] = Vue.Cookie.get('authorization') || config.BASE_AUTH
