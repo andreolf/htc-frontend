@@ -16,7 +16,12 @@
 
 <script>
 export default {
-  name: 'app'
+  name: 'app',
+  methods: {
+    login: function () {
+      return ''
+    }
+  }
 }
 </script>
 

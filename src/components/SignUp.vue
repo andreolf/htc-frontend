@@ -7,15 +7,15 @@
     <p>Ti stai registrando come {{getType}}</p>
     <div class="form-group">
       <label>Nome completo</label>
-      <input type="text" name="" class="form-control" placeholder="Mario Rossi">
+      <input type="text" name="" class="form-control" placeholder="Mario Rossi" required="" v-model="form.full_name">
     </div>
     <div class="form-group">
       <label>Indirizzo email</label>
-      <input type="email" name="" class="form-control" placeholder="email@email.com">
+      <input type="email" name="" class="form-control" placeholder="email@email.com" required="" v-model="form.email">
     </div>
     <div class="form-group">
       <label>Password</label>
-      <input type="password" name="" class="form-control" placeholder="Minimo 6 caratteri">
+      <input type="password" name="" class="form-control" placeholder="Minimo 6 caratteri" required="" v-model="form.password">
     </div>
     <div class="form-group">
       <label>Indirizzo</label>
@@ -37,12 +37,12 @@
           id="map"
           classname="form-control"
           placeholder="Spazio Officina, Via D. Alighieri 4, 6830 Chiasso, Switzerland"
-          v-on:placechanged="mapLocation" :enable-geolocation="true"
+          v-on:placechanged="mapLocation" :enable-geolocation="true" required="" v-model="form.address"
       ></vue-google-autocomplete>
       <small class="form-text text-muted">Dove ritireremo e consegnermo i panni</small>
       <br><br>
       <div class="text-center">
-      <button class="btn btn-info text-center btn-lg">REGISTRATI</button>
+      <button class="btn btn-info text-center btn-lg" @click.prevent="signUp">REGISTRATI</button>
       </div>
     </div>
     </div>
@@ -68,7 +68,7 @@ export default {
       form: {
         password: '',
         email: '',
-        fullName: '',
+        full_name: '',
         address: ''
       }
     }
@@ -87,11 +87,12 @@ export default {
       this.center = position
     },
     signUp: function () {
-      form.type = this.signUpType
-      this.$axios.post(this.$config.BASE_API, form).then((response) => {
-
+      this.$axios.post(`${this.$config.BASE_API}/${this.signUpType}`, this.form).then((response) => {
+        console.log(response)
+        if (response.status !== 201) throw new Error('account non creato')
       }).catch((e) => {
-
+        console.log(e)
+        this.$toasted.error('Si è verification un\'errore, perfavore riprova, causa: ' + e.message)
       })
     }
   }
