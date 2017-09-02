@@ -6,6 +6,7 @@ import Dashboard from '@/components/Dashboard'
 import * as VueGoogleMaps from 'vue2-google-maps'
 import Toasted from 'vue-toasted'
 import config from '../config'
+import VModal from 'vue-js-modal'
 
 const Cookie = require('js-cookie')
 const Axios = require('axios')
@@ -18,6 +19,7 @@ Axios.defaults.headers.common['Accept'] = 'application/json'
 Axios.defaults.headers.common['Authorization'] = Vue.Cookie.get('authorization') || config.BASE_AUTH
 Vue.prototype.$axios = Axios
 Vue.use(Router)
+Vue.use(VModal, { dialog: true })
 Vue.use(Toasted, {'duration': 4000})
 Vue.use(VueGoogleMaps, {
   load: {
