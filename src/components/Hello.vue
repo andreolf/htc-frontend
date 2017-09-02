@@ -3,8 +3,8 @@
   <h1>Il bucato non è più un problema</h1>
   <p>Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum</p>
   <div>
-    <button class="btn btn-default">VOLGIO LAVARE I PANNI</button>
-    <button class="btn btn-default">HO DEI PANNI SPORCHI</button>
+    <button class="btn btn-default" @click="$router.push('/signup/washer')">VOLGIO LAVARE I PANNI</button>
+    <button class="btn btn-default" @click="$router.push('/signup/client')">HO DEI PANNI SPORCHI</button>
   </div>
   </div>
 </template>
