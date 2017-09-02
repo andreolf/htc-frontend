@@ -1,6 +1,15 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="#">Wash My Pants</a>
+        </div>
+        <ul class="nav navbar-nav pull-right">
+          <li><a href="#"><button class="btn btn-default">LOGIN</button></a></li>
+        </ul>
+      </div>
+    </nav>
     <router-view></router-view>
   </div>
 </template>
@@ -16,8 +25,5 @@ export default {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
 }
 </style>
