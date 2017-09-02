@@ -92,6 +92,7 @@ export default {
       this.$axios.post(`${this.$config.BASE_API}/${this.signUpType}`, this.form).then((response) => {
         console.log(response)
         if (response.status !== 201) throw new Error('account non creato')
+        this.Bus.$emit('loginFromSignup', this.form.email)
       }).catch((e) => {
         console.log(e)
         this.$toasted.error('Si è verification un\'errore, riprova, causa: ' + e.message)

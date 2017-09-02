@@ -42,6 +42,12 @@ export default {
       }
     }
   },
+  created () {
+    this.Bus.$on('loginFromSignup', (email) => {
+      console.log(email)
+      this.loginAction(email, 'hack-the-city-2017')
+    })
+  },
   methods: {
     loginAction: function (email, password) {
       var obj = {

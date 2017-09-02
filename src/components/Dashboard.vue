@@ -1,6 +1,13 @@
 <template>
   <div class="container">
-    
+    <div v-if="dashboardType === 'washer'">
+    <!-- washer -->
+      
+    </div>
+    <div v-else>
+    <!-- client -->
+      
+    </div>
   </div>
 </template>
 
@@ -9,7 +16,6 @@ export default {
   name: 'dashboard',
   data () {
     return {
-      msg: '',
       dashboardType: this.$route.params.type
     }
   }
