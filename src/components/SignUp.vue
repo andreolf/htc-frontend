@@ -39,7 +39,8 @@
           placeholder="Spazio Officina, Via D. Alighieri 4, 6830 Chiasso, Switzerland"
           v-on:placechanged="mapLocation" :enable-geolocation="true" required="" v-model="form.address"
       ></vue-google-autocomplete>
-      <small class="form-text text-muted">Dove ritireremo e consegnermo i panni</small>
+      <small class="form-text text-muted" v-if="signUpType === 'client'">Dove ritireremo e consegnermo i panni</small>
+      <small class="form-text text-muted" v-else>Dove laverai i panni</small>
       <br><br>
       <div class="text-center">
       <button class="btn btn-info text-center btn-lg" @click.prevent="signUp">REGISTRATI</button>
