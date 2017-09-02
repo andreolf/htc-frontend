@@ -63,6 +63,7 @@ export default {
           this.$cookie.set('email', obj.email)
           this.$cookie.set('full_name', response.data.full_name)
           this.$cookie.set('authorization', auth)
+          this.$cookie.set('account_type', userType)
           window.location.href = '/dashboard/' + userType
         }
       }).catch((e) => {
@@ -85,5 +86,8 @@ export default {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+.center-loader {
+  display: inline-block;
 }
 </style>
