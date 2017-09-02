@@ -34,10 +34,10 @@
         ></gmap-marker>
       </gmap-map>
       <vue-google-autocomplete
-          id="map"
+          id="map-input"
           classname="form-control"
           placeholder="Spazio Officina, Via D. Alighieri 4, 6830 Chiasso, Switzerland"
-          v-on:placechanged="mapLocation" :enable-geolocation="true" required="" v-model="form.address"
+          v-on:placechanged="mapLocation" :enable-geolocation="true" required=""
       ></vue-google-autocomplete>
       <small class="form-text text-muted" v-if="signUpType === 'client'">Dove ritireremo e consegnermo i panni</small>
       <small class="form-text text-muted" v-else>Dove laverai i panni</small>
@@ -84,6 +84,7 @@ export default {
     mapLocation: function (val) {
       console.log(val)
       var position = {lat: val.latitude, lng: val.longitude}
+      this.form.address = document.getElementById('map-input').value
       this.markers = [{position: position}]
       this.center = position
     },
@@ -93,7 +94,7 @@ export default {
         if (response.status !== 201) throw new Error('account non creato')
       }).catch((e) => {
         console.log(e)
-        this.$toasted.error('Si è verification un\'errore, perfavore riprova, causa: ' + e.message)
+        this.$toasted.error('Si è verification un\'errore, riprova, causa: ' + e.message)
       })
     }
   }
