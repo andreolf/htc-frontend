@@ -3,7 +3,7 @@
     <div v-if="dashboardType === 'washer'">
     <!-- washer -->
       <div class="row">
-        <div class="col-md-4 col-md-offset-2">
+        <div class="col-md-6">
           <div class="panel panel-default">
             <div class="panel-body text-center">
               <bounce-loader :loading="balance === null" class="center-loader"></bounce-loader>
@@ -13,15 +13,16 @@
             </div>
           </div>
         </div>
-        <div class="col-md-4">
-          <button class="btn btn-lg btn-info">MODIFICA MODALITA' DI PAGAMENTO</button>
+        <div class="col-md-6">
+          <button class="btn btn-lg btn-info" style="margin-top:20px;">MODIFICA MODALITA' DI PAGAMENTO</button>
+          <p class="text-muted" style="margin-left: 35px;">I soldi ti verranno consegnati alla fine del mese</p>
         </div>
         </div>
 
         <div class="row">
           <div class="col-md-6">
             <h3>PROSSIMI BUCATI</h3>
-            <p class="text-muted">Lorem Ipsum</p>
+            <p class="text-muted">Prossimi bucati da ritirare</p>
 
             <skew-loader :loading="nextWashList === null" style="padding: 10% 0;"></skew-loader>
             <span v-if="washerSubIdList !== null && washerSubIdList.length > 0">
@@ -32,11 +33,11 @@
                 </div>
               </div>
             </span>
-            <p v-else class="text-muted text-center">Accetta almeno un ordine</p>
+            <p v-else class="text-muted text-center" style="padding: 10% 0;">Accetta almeno un ordine</p>
           </div>
           <div class="col-md-6">
             <h3>RICHIESTE ATTIVE</h3>
-            <p class="text-muted">Lorem Ipsum</p>
+            <p class="text-muted">Richieste attive nella tua zona</p>
             <skew-loader :loading="activeWashList === null" style="padding: 10% 0;"></skew-loader>
             <div class="panel panel-default" v-for="obj in activeWashList">
               <div class="panel-body">
@@ -46,7 +47,7 @@
                 <p class="text-center"><button class="btn btn-success" @click="acceptOrder(i, obj)">ACCETTA</button></p>
               </div>
             </div>
-            <p class="text-center text-muted" v-if="activeWashList !== null && activeWashList.length === 0">Nessuna richiesta attiva al momento</p>
+            <p class="text-center text-muted" v-if="activeWashList !== null && activeWashList.length === 0" style="padding: 10% 0;">Nessuna richiesta attiva al momento</p>
           </div>
         </div>
     </div>
