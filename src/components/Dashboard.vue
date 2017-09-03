@@ -28,7 +28,7 @@
               <div class="panel panel-default" v-for="obj in nextWashList">
                 <div class="panel-body">
                   <p>Indirizzo: {{obj.address}}</p>
-                  <p>{{getStringDate(obj.plan_start)}} ({{getTimeDiffDay(obj.plan_start)}})</p>
+                  <p>{{getStringDate(moment().day(5).toDate())}} ({{getTimeDiffDay(moment().day(5).toDate())}})</p>
                 </div>
               </div>
             </span>
@@ -43,7 +43,7 @@
                 <p>Abbonamento {{totSub(obj)}} {{subMonthsName(obj)}}</p>
                 <p>Indirizzo: {{obj.address}}</p>
                 <p>Inizio: {{getStringDate(obj.plan_start)}} ({{getTimeDiffDay(obj.plan_start)}})</p>
-                <p class="text-center"><button class="btn btn-success" @click="acceptOrder(obj._id)">ACCETTA</button></p>
+                <p class="text-center"><button class="btn btn-success" @click="acceptOrder(i, obj)">ACCETTA</button></p>
               </div>
             </div>
             <p class="text-center text-muted" v-if="activeWashList !== null && activeWashList.length === 0">Nessuna richiesta attiva al momento</p>
@@ -121,14 +121,29 @@ export default {
       remWash: null,
       hasSub: this.$cookie.get('hasSub') || null,
       washerAssigned: null,
-      subDetails: null
+      subDetails: null,
+      interval: null
     }
   },
   created () {
     this.getAccountInfo()
+    if (this.interval !== null) return
+    this.interval = setInterval(() => {
+      this.getDynamicInfo()
+    }, 5000)
+  },
+  beforeDestroy () {
+    clearInterval(this.interval)
   },
   methods: {
     moment: moment,
+    getDynamicInfo: function () {
+      if (this.dashboardType === 'client') {
+
+      } else {
+        this.getAllSubs()
+      }
+    },
     getTimeDiffDay: function (fromA, toDate) {
       toDate = typeof toDate === 'undefined' ? new Date() : toDate
       var a = moment(fromA)
@@ -138,14 +153,16 @@ export default {
     getStringDate: function (date) {
       return moment(date).format('dddd DD MMMM')
     },
-    acceptOrder: function (subId) {
+    acceptOrder: function (index, sub) {
       var obj = {
-        'sub_id': subId,
+        'sub_id': sub._id,
         'email': this.$cookie.get('email')
       }
       this.$axios.post(this.$config.BASE_API + '/accept_order', obj).then((response) => {
         console.log(response)
-        // TODO refetch all
+        this.$toasted.success('Ordine accettato con successo')
+        if (index !== null) this.activeWashList.splice(index, 1)
+        this.nextWashList.push(sub)
       }).catch((e) => {
         console.log(e)
       })
@@ -198,6 +215,10 @@ export default {
     getAllSubs: function () {
       this.$axios.get(this.$config.BASE_API + '/all_available_subs').then((response) => {
         console.log(response)
+        if (this.activeWashList !== null && response.data.active_subs && response.data.active_subs.length > 0 && response.data.active_subs.length !== this.activeWashList.length) {
+          const self = this
+          this.$toasted(`Nuova richiesta disponibile, ${response.data.active_subs[0].address}`, {'fullWidth': true, action: {text: 'ACCETTA', onClick: function (e, t) { self.acceptOrder(null, response.data.active_subs[0]) }}, duration: 8000})
+        }
         this.activeWashList = response.data.active_subs
       }).catch((e) => {
         console.log(e)
@@ -208,7 +229,8 @@ export default {
       this.$axios.get(this.$config.BASE_API + '/' + this.dashboardType + '/' + queryString).then((response) => {
         console.log(response)
         var data = response.data._items[0]
-        if (data['balance'] && data.balance >= 0) this.balance = data.balance
+        console.log(data)
+        if (typeof data['balance'] !== 'undefined') this.balance = data.balance
         if (data.payment_added) this.paymentAdded = data.payment_added
         if (this.dashboardType === 'client') {
           this.hasSub = data.sub_id
