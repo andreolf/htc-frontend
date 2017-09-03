@@ -86,6 +86,7 @@ export default {
       this.$cookie.remove('auth')
       this.$cookie.remove('email')
       this.$cookie.remove('authorization')
+      this.$cookie.remove('hasSub')
       window.location.href = '/'
     }
   }

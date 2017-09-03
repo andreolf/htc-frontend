@@ -25,7 +25,7 @@
             <p class="text-muted">Prossimi bucati da ritirare</p>
 
             <skew-loader :loading="nextWashList === null" style="padding: 10% 0;"></skew-loader>
-            <span v-if="washerSubIdList !== null && washerSubIdList.length > 0">
+            <span v-if="washerSubIdList !== null">
               <div class="panel panel-default" v-for="obj in nextWashList">
                 <div class="panel-body">
                   <p>Indirizzo: {{obj.address}}</p>
@@ -85,12 +85,12 @@
                 <div class="panel panel-default">
                   <div class="panel-body">
                     <div v-if="washerAssigned !== null">
-                    <p>{{washerAssigned.full_name.split(' ')[0] + ', ' + washerAssigned.address}}</p>
+                    <p>{{getWasherName + ', ' + washerAssigned.address}}</p>
                       <p class="text-center">
                       <button class="btn btn-success text-center" style="width: 100%;"><i class="glyphicon glyphicon-earphone"></i> CONTATTA</button>
                       </p>
                     </div>
-                    <p v-else class="text-muted text-center">In attesa...</p>
+                    <p v-else class="text-muted text-center" style="padding: 10% 0;">In attesa...</p>
                   </div>
                 </div>
               </div>
@@ -130,6 +130,14 @@ export default {
       washerAssigned: null,
       subDetails: null,
       interval: null
+    }
+  },
+  computed: {
+    getWasherName: function () {
+      var name = this.washerAssigned.full_name
+      if (typeof name !== 'string') return null
+      if (name.indexOf(' ') > -1) name = name.split(' ')[0]
+      return name
     }
   },
   created () {
@@ -225,7 +233,7 @@ export default {
         console.log(response)
         if (this.activeWashList !== null && response.data.active_subs && response.data.active_subs.length > 0 && response.data.active_subs.length !== this.activeWashList.length) {
           const self = this
-          this.$toasted(`Nuova richiesta disponibile, ${response.data.active_subs[0].address}`, {'fullWidth': true, action: {text: 'ACCETTA', onClick: function (e, t) { self.acceptOrder(null, response.data.active_subs[0]) }}, duration: 8000})
+          this.$toasted.info(`Nuova richiesta disponibile, ${response.data.active_subs[0].address}`, {'fullWidth': true, action: {text: 'ACCETTA', onClick: function (e, t) { self.acceptOrder(null, response.data.active_subs[0]) }}, duration: 8000})
         }
         this.activeWashList = response.data.active_subs
       }).catch((e) => {
