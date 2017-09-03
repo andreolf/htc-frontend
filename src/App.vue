@@ -20,6 +20,11 @@
     </nav>
     <v-dialog/>
     <router-view></router-view>
+    <footer class="footer" style="background-color:rgb(240, 240, 240);margin-top:250px;">
+      <div class="container text-center">
+        <p class="text-muted" style="padding: 2% 0;">WASH MY PANTS - <b>HACK THE CITY 2017</b></p>
+      </div>
+    </footer>
   </div>
 </template>
 

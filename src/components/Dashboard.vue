@@ -81,7 +81,7 @@
               </div>
             </div>
               <div class="col-md-4">
-                <h4>LAVANDAIA ASSEGNATA</h4>
+                <h4>INFO WASHER</h4>
                 <div class="panel panel-default">
                   <div class="panel-body">
                     <div v-if="washerAssigned !== null">

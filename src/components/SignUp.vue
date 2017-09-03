@@ -79,7 +79,7 @@ export default {
   },
   computed: {
     getType: function () {
-      if (this.signUpType === 'washer') return 'Lavandaia'
+      if (this.signUpType === 'washer') return 'Washer'
       else return 'Cliente'
     }
   },
