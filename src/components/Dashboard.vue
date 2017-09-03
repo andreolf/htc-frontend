@@ -28,8 +28,8 @@
             <span v-if="washerSubIdList !== null">
               <div class="panel panel-default" v-for="obj in nextWashList">
                 <div class="panel-body">
-                  <p>Indirizzo: {{obj.address}}</p>
-                  <p>{{getStringDate(moment().day(5).toDate())}} ({{getTimeDiffDay(moment().day(5).toDate())}})</p>
+                  <p><b>Indirizzo:</b> {{obj.address}}</p>
+                  <p><b>Data:</b> {{getStringDate(moment().day(5).toDate())}} ({{getTimeDiffDay(moment().day(5).toDate())}})</p>
                 </div>
               </div>
             </span>
@@ -42,8 +42,8 @@
             <div class="panel panel-default" v-for="obj in activeWashList">
               <div class="panel-body">
                 <p>Abbonamento {{totSub(obj)}} {{subMonthsName(obj)}}</p>
-                <p>Indirizzo: {{obj.address}}</p>
-                <p>Inizio: {{getStringDate(obj.plan_start)}} ({{getTimeDiffDay(obj.plan_start)}})</p>
+                <p><b>Indirizzo:</b> {{obj.address}}</p>
+                <p><b>Inizio:</b> {{getStringDate(obj.plan_start)}} ({{getTimeDiffDay(obj.plan_start)}})</p>
                 <p class="text-center"><button class="btn btn-success" @click="acceptOrder(i, obj)">ACCETTA</button></p>
               </div>
             </div>
@@ -85,7 +85,8 @@
                 <div class="panel panel-default">
                   <div class="panel-body">
                     <div v-if="washerAssigned !== null">
-                    <p>{{getWasherName + ', ' + washerAssigned.address}}</p>
+                    <p><b>Nome:</b> {{getWasherName}}</p>
+                    <p>{{washerAssigned.address}}</p>
                       <p class="text-center">
                       <button class="btn btn-success text-center" style="width: 100%;"><i class="glyphicon glyphicon-earphone"></i> CONTATTA</button>
                       </p>
