@@ -13,6 +13,10 @@
       <input type="email" name="" class="form-control" placeholder="email@email.com" required="" v-model="form.email">
     </div>
     <div class="form-group">
+      <label>Numero di telefono</label>
+      <input type="text" name="" class="form-control" placeholder="990 777 8782" required="">
+    </div>
+    <div class="form-group">
       <label>Password</label>
       <input type="password" name="" class="form-control" placeholder="Minimo 6 caratteri" required="" v-model="form.password">
     </div>

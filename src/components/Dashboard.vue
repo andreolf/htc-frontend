@@ -76,7 +76,7 @@
                 <div class="panel-body text-center">
                   <bounce-loader :loading="remWash === null" class="center-loader"></bounce-loader>
                   <h1 style="padding:0px;margin:0px;">{{remWash}}</h1>
-                  <button class="btn btn-default btn-small">AGGIUNGI</button>
+                  <button class="btn btn-default btn-small" style="margin-top: 18px;">AGGIUNGI</button>
                 </div>
               </div>
             </div>
@@ -84,7 +84,12 @@
                 <h4>LAVANDAIA ASSEGNATA</h4>
                 <div class="panel panel-default">
                   <div class="panel-body">
-                    <p v-if="washerAssigned !== null">{{washerAssigned.full_name.split(' ')[0] + ', ' + washerAssigned.address}}</p>
+                    <div v-if="washerAssigned !== null">
+                    <p>{{washerAssigned.full_name.split(' ')[0] + ', ' + washerAssigned.address}}</p>
+                      <p class="text-center">
+                      <button class="btn btn-success text-center" style="width: 100%;"><i class="glyphicon glyphicon-earphone"></i> CONTATTA</button>
+                      </p>
+                    </div>
                     <p v-else class="text-muted text-center">In attesa...</p>
                   </div>
                 </div>
