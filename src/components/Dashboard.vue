@@ -73,8 +73,9 @@
               <h4>LAVAGGI RIMASTI</h4>
               <div class="panel panel-default">
                 <div class="panel-body text-center">
-                  <h1 style="padding:0px;margin:0px;">5</h1>
-                  <button class="btn btn-info btn-small">AGGIUNGI</button>
+                  <bounce-loader :loading="remWash === null" class="center-loader"></bounce-loader>
+                  <h1 style="padding:0px;margin:0px;">{{remWash}}</h1>
+                  <button class="btn btn-default btn-small">AGGIUNGI</button>
                 </div>
               </div>
             </div>
@@ -194,6 +195,7 @@ export default {
         if (subId) {
           this.getWasherBySub(subId)
           this.subDetails = data
+          this.remWash = data.wash_total - data.wash_done
         } else {
           this.nextWashList = data
         }
