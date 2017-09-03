@@ -3,7 +3,7 @@
     <nav class="navbar navbar-default">
       <div class="container-fluid">
         <div class="navbar-header">
-          <a class="navbar-brand" href="#" @click.prevent="$router.push('/')">Wash My Pants</a>
+          <a class="navbar-brand" href="#" @click.prevent="$router.push('/')">WASH MY PANTS</a>
         </div>
         <ul class="nav navbar-nav pull-right">
           <li v-if="!this.$cookie.get('auth')"><a href="#" @click.prevent="$modal.show('dialog', dialogContent)"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
@@ -95,5 +95,17 @@ export default {
 }
 .center-loader {
   display: inline-block;
+}
+.navbar {
+  background-color: #7760e8 !important;
+}
+.navbar-brand {
+  font-size: 1.3em;
+}
+li > a {
+      font-size: 1.2em;
+}
+label {
+  font-size: 15px !important;
 }
 </style>

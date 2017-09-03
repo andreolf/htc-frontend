@@ -3,7 +3,6 @@
   <div class="row">
   <div class="col-md-6 col-sm-offset-3">
     <h2>Registrazione</h2>
-    <p>Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum</p>
     <p>Ti stai registrando come {{getType}}</p>
     <div class="form-group">
       <label>Nome completo</label>
