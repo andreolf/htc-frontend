@@ -1,10 +1,11 @@
 <template>
-  <div class="container">
+  <div class="container text-center">
   <h1>Il bucato non è più un problema</h1>
   <p>Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum</p>
   <div>
-    <button class="btn btn-default" @click="toDashboard('/signup/washer')">VOLGIO LAVARE I PANNI</button>
-    <button class="btn btn-default" @click="toDashboard('/signup/client')">HO DEI PANNI SPORCHI</button>
+    <button class="btn btn-default btn-info" @click="toDashboard('/signup/washer')">VOLGIO LAVARE I PANNI</button>
+    &nbsp;&nbsp;&nbsp;&nbsp;
+    <button class="btn btn-default btn-info" @click="toDashboard('/signup/client')">HO DEI PANNI SPORCHI</button>
   </div>
   </div>
 </template>

@@ -208,7 +208,7 @@ export default {
       this.$axios.get(this.$config.BASE_API + '/' + this.dashboardType + '/' + queryString).then((response) => {
         console.log(response)
         var data = response.data._items[0]
-        if (data.balance >= 0) this.balance = data.balance
+        if (data['balance'] && data.balance >= 0) this.balance = data.balance
         if (data.payment_added) this.paymentAdded = data.payment_added
         if (this.dashboardType === 'client') {
           this.hasSub = data.sub_id
