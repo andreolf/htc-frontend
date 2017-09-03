@@ -1,13 +1,15 @@
 <template>
   <div>
+  <div class="custom-bg">
   <div class="container text-center">
   <h1>Il bucato non è più un problema</h1>
   <p>Wash My Pants é una startup ticinese che si propone di risolvere una volta per tutte il problema del bucato nella vita delle persone</p>
   <br>
   <div>
-    <button class="btn btn-default btn-info" @click="toDashboard('/signup/washer')">VOGLIO LAVARE I PANNI</button>
+    <button class="btn btn-default btn-info btn-lg" @click="toDashboard('/signup/washer')">VOGLIO LAVARE I PANNI</button>
     &nbsp;&nbsp;&nbsp;&nbsp;
-    <button class="btn btn-default btn-info" @click="toDashboard('/signup/client')">HO DEI PANNI SPORCHI</button>
+    <button class="btn btn-default btn-info btn-lg" @click="toDashboard('/signup/client')">HO DEI PANNI SPORCHI</button>
+  </div>
   </div>
   </div>
   <br><br>
@@ -55,7 +57,7 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
+<style>
 h1, h2 {
   font-weight: normal;
 }
@@ -72,5 +74,16 @@ li {
 
 a {
   color: #42b983;
+}
+.custom-bg {
+  background-image: url(http://i.imgur.com/CXZk09b.jpg); /* https://pixabay.com/en/washing-machine-laundry-tumble-drier-2668472/ */
+  background-size: cover;
+  height: 350px;
+  margin: 0px !important;
+  background-repeat: no-repeat;
+  padding: 100px;
+}
+.navbar, .navbar-default {
+  margin-bottom: 0px !important;
 }
 </style>

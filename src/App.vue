@@ -99,6 +99,9 @@ export default {
 .navbar {
   background-color: #7760e8 !important;
 }
+.btn-info {
+  background-color: #7760e8 !important;
+}
 .navbar-brand {
   font-size: 1.3em;
 }
